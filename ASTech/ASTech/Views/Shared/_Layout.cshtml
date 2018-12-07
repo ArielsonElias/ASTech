@@ -19,6 +19,8 @@
                 </button>
                 @Html.ActionLink("ASTech", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
+            @if (Request.IsAuthenticated)
+            {
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Início", "Index", "Home")</li>
@@ -78,7 +80,21 @@
                     <li>@Html.ActionLink("Sobre", "Sobre", "Home")</li>
                     <li>@Html.ActionLink("Contato", "Contato", "Home")</li>
                 </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Olá @User.Identity.Name</a></li>
+                    @using (Html.BeginForm("LogOff", "Conta", FormMethod.Post, new { id = "logoffForm" }))
+                    {
+                        <li><a href="javascript:document.getElementById('logoffForm').submit()">Sair</a></li>
+                    }
+                </ul>
             </div>
+            }
+            else
+            {
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Login", "Login", "Conta")</li>
+                </ul>
+            }
         </div>
     </div>
     <div class="container body-content">
